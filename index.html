@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="S&S Enterprises offers premium uPVC windows, doors, telecom, IT, power, and software solutions since 2014.">
+    <meta name="keywords" content="uPVC windows, telecom solutions, IT networking, electricity power, software, Apple products, Samsung products, S&S Enterprises">
+    <meta property="og:title" content="S&S Enterprises - Premium Technology Solutions">
+    <meta property="og:description" content="Discover uPVC windows, telecom, IT, power, and software solutions from S&S Enterprises, trusted since 2014.">
+    <meta property="og:image" content="/assets/og-image.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>S&S Enterprises - Premium Technology Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.2/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            scroll-behavior: smooth;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        .content-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            z-index: 1;
+        }
+        .content-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            transition: backdrop-filter 0.3s ease, background 0.3s ease;
+            z-index: -1;
+        }
+        .content-wrapper.blur::before {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .overlay {
+            background: rgba(255, 255, 255, 0.95);
+            color: #000;
+            width: 100%;
+            max-width: 800px;
+            min-height: 300px;
+            padding: 30px;
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        .floating-card {
+            background: #fff;
+            color: #000;
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger.active {
+            display: flex;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #1d1d1f;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        .mobile-menu {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            width: 80%;
+            max-width: 300px;
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        .mobile-menu.open {
+            right: 20px;
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-content.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+        img {
+            object-fit: contain;
+            width: 100%;
+            max-width: 100%;
+        }
+        .swiper {
+            width: 100%;
+            overflow: hidden;
+        }
+        .swiper-slide {
+            width: 240px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .swiper-slide-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: #2563eb;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px;
+        }
+        .popup {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .timeline-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px 0;
+            scrollbar-width: thin;
+            position: relative;
+            width: 100%;
+        }
+        .timeline {
+            display: inline-flex;
+            gap: 40px;
+            padding: 0 20px;
+            position: relative;
+            animation: autoScroll 15s linear infinite;
+        }
+        @keyframes autoScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .timeline-item {
+            text-align: center;
+            min-width: 100px;
+            position: relative;
+        }
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background: #2563eb;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+        .timeline-connector {
+            height: 2px;
+            background: #2563eb;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+        .timeline-item:first-child .timeline-connector {
+            left: 50%;
+        }
+        .timeline-item:last-child .timeline-connector {
+            right: 50%;
+        }
+        .count-up {
+            display: inline-block;
+            min-width: 50px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #2563eb, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .chatbot-window {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 400px;
+  max-width: 90vw;
+  height: 600px;
+  background: white;
+  border-radius: 24px; /* Increased curve */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Optional: softer shadow */
+  z-index: 1001;
+  display: none;
+  flex-direction: column;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+        .chatbot-window.open {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+ .chatbot-header {
+  background: #2563eb;
+  color: white;
+  padding: 10px;
+  border-radius: 24px 24px 0 0; /* Match outer curve */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+        .chatbot-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background: #f5f5f7;
+        }
+        .chatbot-footer {
+         padding-bottom: 0px;
+         padding-top: 6px;  /* Optional: thoda gap upar se */
+         border-top: none;
+       }
+        .chatbot-message {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+        .chatbot-message.user {
+            background: #2563eb;
+            color: white;
+            margin-left: auto;
+        }
+        .chatbot-message.bot {
+  background: white;
+  color: #1d1d1f;
+  margin-right: auto;
+  font-weight: 300;        /* Patla font */
+  font-size: 14px;         /* Optional: smaller */
+  font-style: italic;      /* Optional: elegant */
+}
+        .ceo-section {
+            background: #f5f5f7;
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .ceo-card {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .ceo-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .text-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+            .mobile-menu {
+                width: 90%;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const App = () => {
+            const [menuOpen, setMenuOpen] = useState(false);
+            const [searchOpen, setSearchOpen] = useState(false);
+            const [activeOverlay, setActiveOverlay] = useState(null);
+            const [selectedProduct, setSelectedProduct] = useState(null);
+            const [showCareerModal, setShowCareerModal] = useState(false);
+            const [showReviewPopup, setShowReviewPopup] = useState(null);
+            const [showProductPopup, setShowProductPopup] = useState(null);
+            const [showClientPopup, setShowClientPopup] = useState(null);
+            const [chatOpen, setChatOpen] = useState(false);
+            const [chatMessages, setChatMessages] = useState([]);
+            const pieChartRef = useRef(null);
+            const yearCounterRef = useRef(null);
+            const timelineYearRef = useRef(null);
+            const innovationYearsRef = useRef(null);
+            const clientsServedRef = useRef(null);
+            const turnoverRef = useRef(null);
+            const employeesRef = useRef(null);
+            const ceoSectionRef = useRef(null);
+            const journeyTextRef = useRef(null);
+
+            useEffect(() => {
+                AOS.init({ duration: 800, once: true });
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.to(".parallax-bg", {
+                    backgroundPosition: "50% 100%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".hero",
+                        scrub: true,
+                        start: "top top",
+                        end: "bottom top"
+                    }
+                });
+
+                gsap.utils.toArray("section").forEach((section) => {
+                    gsap.from(section, {
+                        opacity: 0,
+                        y: 50,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        }
+                    });
+                });
+
+                const counters = [
+                    { id: "happy-customers", end: 1000, suffix: "+" },
+                    { id: "revenue", end: 5, prefix: "₹", suffix: " Cr+" },
+                    { id: "years", end: 11, suffix: " Years" }
+                ];
+                counters.forEach(({ id, end, prefix = "", suffix = "" }) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        new IntersectionObserver(([entry]) => {
+                            if (entry.isIntersecting) {
+                                new CountUp(id, 0, end, 0, 2, { prefix, suffix }).start();
+                            }
+                        }, { threshold: 0.5 }).observe(element);
+                    }
+                });
+
+                if (yearCounterRef.current) {
+                    new IntersectionObserver(([entry]) => {
+                        if (entry.isIntersecting) {
+                            gsap.to(yearCounterRef.current, {
+                                innerText: 2014,
+                                duration: 2,
+                                snap: { innerText: 1 },
+                                onUpdate: () => yearCounterRef.current.innerText = Math.round(yearCounterRef.current.innerText)
+                            });
+                        }
+                    }, { threshold: 0.5 }).observe(yearCounterRef.current);
+                }
+
+                if (pieChartRef.current) {
+                    new IntersectionObserver(([entry]) => {
+                        if (entry.isIntersecting) {
+                            new Chart(pieChartRef.current, {
+                                type: "pie",
+                                data: {
+                                    labels: ["Excellent", "Good", "Average", "Poor"],
+                                    datasets: [{
+                                        data: [95, 3, 1, 1],
+                                        backgroundColor: ["#60a5fa", "#93c5fd", "#bfdbfe", "#e0f2fe"],
+                                        borderWidth: 0
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    animation: { animateScale: true, animateRotate: true, duration: 1500 },
+                                    plugins: { legend: { position: "bottom" } }
+                                }
+                            });
+                        }
+                    }, { threshold: 0.5 }).observe(pieChartRef.current);
+                }
+
+                if (timelineYearRef.current) {
+                    new IntersectionObserver(([entry]) => {
+                        if (entry.isIntersecting) {
+                            gsap.to(timelineYearRef.current, {
+                                innerText: 2014,
+                                duration: 3,
+                                snap: { innerText: 1 },
+                                onUpdate: () => timelineYearRef.current.innerText = Math.round(timelineYearRef.current.innerText)
+                            });
+                            gsap.to(innovationYearsRef.current, {
+                                innerText: 11,
+                                duration: 3,
+                                snap: { innerText: 1 },
+                                onUpdate: () => innovationYearsRef.current.innerText = Math.round(innovationYearsRef.current.innerText)
+                            });
+                            gsap.to(clientsServedRef.current, {
+                                innerText: 10000,
+                                duration: 3,
+                                snap: { innerText: 1 },
+                                onUpdate: () => clientsServedRef.current.innerText = Math.round(clientsServedRef.current.innerText) + "+"
+                            });
+                            gsap.to(turnoverRef.current, {
+                                innerText: 5,
+                                duration: 3,
+                                snap: { innerText: 0.1 },
+                                onUpdate: () => turnoverRef.current.innerText = "₹" + turnoverRef.current.innerText + " Cr"
+                            });
+                            gsap.to(employeesRef.current, {
+                                innerText: 25,
+                                duration: 3,
+                                snap: { innerText: 1 },
+                                onUpdate: () => employeesRef.current.innerText = Math.round(employeesRef.current.innerText)
+                            });
+                        }
+                    }, { threshold: 0.5 }).observe(timelineYearRef.current);
+                }
+
+                if (ceoSectionRef.current) {
+                    new IntersectionObserver(([entry]) => {
+                        if (entry.isIntersecting) {
+                            ceoSectionRef.current.classList.add('visible');
+                        }
+                    }, { threshold: 0.5 }).observe(ceoSectionRef.current);
+                }
+
+                if (journeyTextRef.current) {
+                    new IntersectionObserver(([entry]) => {
+                        if (entry.isIntersecting) {
+                            gsap.to(journeyTextRef.current, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                ease: "power2.out"
+                            });
+                        }
+                    }, { threshold: 0.5 }).observe(journeyTextRef.current);
+                }
+
+                const productSwiper = new Swiper('.product-slider', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    loop: true,
+                    freeMode: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next.product-next',
+                        prevEl: '.swiper-button-prev.product-prev'
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
+                    }
+                });
+
+                const clientSwiper = new Swiper('.client-slider', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    loop: true,
+                    freeMode: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next.client-next',
+                        prevEl: '.swiper-button-prev.client-prev'
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
+                    }
+                });
+
+                const reviewSwiper = new Swiper('.review-slider', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 20,
+                    loop: true,
+                    freeMode: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next.review-next',
+                        prevEl: '.swiper-button-prev.review-prev'
+                    },
+                    breakpoints: {
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
+                    }
+                });
+            }, []);
+
+            const toggleMenu = () => setMenuOpen(!menuOpen);
+            const toggleSearch = () => setSearchOpen(!searchOpen);
+            const openOverlay = (overlay) => setActiveOverlay(overlay);
+            const closeOverlay = () => setActiveOverlay(null);
+            const openProductCard = (product) => setSelectedProduct(product);
+            const closeProductCard = () => setSelectedProduct(null);
+            const toggleCareerModal = () => setShowCareerModal(!showCareerModal);
+            const openReviewPopup = (review) => setShowReviewPopup(review);
+            const closeReviewPopup = () => setShowReviewPopup(null);
+            const openProductPopup = (product) => setShowProductPopup(product);
+            const closeProductPopup = () => setShowProductPopup(null);
+            const openClientPopup = (client) => setShowClientPopup(client);
+            const closeClientPopup = () => setShowClientPopup(null);
+            const toggleChat = () => setChatOpen(!chatOpen);
+
+            const handleChatSubmit = (e) => {
+                e.preventDefault();
+                const input = e.target.querySelector('input');
+                const message = input.value.trim();
+                if (message) {
+                    setChatMessages([...chatMessages, { text: message, type: 'user' }]);
+                    setTimeout(() => {
+                        setChatMessages(prev => [...prev, { text: "You’re chatting with the S&S Smart Assistant I’m here to assist you with product details, reviews, or any queries you may have. How Can I Support You Today ", type: 'bot' }]);
+                    }, 1000);
+                    input.value = '';
+                }
+            };
+
+            const products = [
+                { name: "Apple Products", image: "https://i.postimg.cc/Xv5GFB6t/imac-touch-id-blue-gallery-1-202410.jpg", description: "Premium MacBooks, iMacs, accessories." },
+                { name: "Samsung Products", image: "https://i.postimg.cc/T3393BXm/nicolas-gonzalez-183-F-v-Na-N8-A-unsplash.jpg", description: "Galaxy Books, SSDs, monitors." },
+                { name: "Dell", image: "https://i.postimg.cc/rpnn7CgD/dell.jpg", description: "High-performance laptops, desktops." },
+                { name: "HP", image: "https://i.postimg.cc/MGK3sr0k/hp.jpg", description: "Reliable workstations, printers." },
+                { name: "UPVC Windows and Doors", image: "https://i.postimg.cc/fLQHjZ4R/10734-1.jpg", description: "Durable, modern window solutions." },
+                { name: "Endorse (Electricity, Power & Telecom)", image: "https://i.postimg.cc/YC7sFShC/electric-and-power.jpg", description: "UPS, solar, telecom systems." },
+                { name: "IT & Networking", image: "https://i.postimg.cc/Jz9KMmz5/it.jpg", description: "Robust servers, networking." },
+                { name: "Software", image: "https://i.postimg.cc/3xfZ49Kq/paul-hanaoka-s0-Xab-TAKvak-unsplash.jpg", description: "MS Office, Tally, and more." },
+                { name: "UPVC Installation", image: "https://i.postimg.cc/DzL6zDWk/wi.jpg", description: "Expert uPVC fitting services." },
+                { name: "Telecom Deployment", image: "https://i.postimg.cc/rwdgBzMp/it-copy.jpg", description: "Seamless telecom infrastructure." },
+                { name: "IT Infrastructure", image: "https://i.postimg.cc/6QWTmjkL/84409.jpg", description: "Scalable IT solutions." }
+            ];
+
+            const clients = [
+                { name: "Government", image: "https://i.postimg.cc/mDPX4z68/government-logo.png" },
+                { name: "MSME", image: "https://i.postimg.cc/hvx2zFnm/ministry-of-micro-small-and-medium-enterprises-logo-png-seeklogo-524483.png" },
+                { name: "Labour and Employment", image: "https://i.postimg.cc/NMMGFGK2/381A6B90AB9247ACB9A8A1EE895E6A7E.png" },
+                { name: "Defence Production", image: "https://i.postimg.cc/Bb95szvy/4F786723DA3842278BF1860881B642B3.png" },
+                { name: "Ministry of Defence", image: "https://i.postimg.cc/6TsBMdYC/50829047EF8F4FB4A85D5EBBBD13075A.jpg" },
+                { name: "Health and Family Welfare", image: "https://i.postimg.cc/NfrMR0p1/219F480E3AA9489E871C77DF7C8EFE5C.jpg" },
+                { name: "Rural Development", image: "https://i.postimg.cc/8zS65WNF/AD05D519CC2B4D4A9CC99BD664DC4EBD.jpg" },
+                { name: "Housing and Urban Affairs", image: "https://i.postimg.cc/YqcN4mZJ/Ministry-of-Housing-Urban-Affairs-India.png" },
+                { name: "Agriculture and Farmers Welfare", image: "https://i.postimg.cc/NMJMk93x/77F27F6D6F214A84A935786E3DD24561.jpg" },
+                { name: "Tribal Affairs", image: "https://i.postimg.cc/wvZtdRwj/CF3A2AA53ED8485A8E9CEBFB429E4E78.png" },
+                { name: "Corporate Affairs", image: "https://i.postimg.cc/1txVNqZV/1B0A487D1D104B4998BB0B05239D54BC.jpg" },
+                { name: "Law and Justice", image: "https://i.postimg.cc/9fcQ3YVp/606C688A689A4822BA740D72F7A82F96.jpg" },
+                { name: "Commerce and Industry", image: "https://i.postimg.cc/DzzmJPDz/D84F0D8FF12E4E0AA137D3BFF643383C.jpg" },
+                { name: "Social Justice", image: "https://i.postimg.cc/GmFmS50t/534CF348B8DA47959DC16E6FD038E688.png" },
+                { name: "NITI Aayog", image: "https://i.postimg.cc/GhkFvm19/niti-logo-website.jpg" },
+                { name: "Maharashtra Post Office", image: "https://i.postimg.cc/Kj1YqcFh/46A2B104E37B4E1CBA68F52EACA41A86.jpg" },
+                { name: "Sangeet Natak Akademi", image: "https://i.postimg.cc/Qd0q5S69/1D39D33FE32149E9A7A7A41BE39EC14B.png" },
+                { name: "DGAQA", image: "https://i.postimg.cc/JnvN5ynH/926749e93bf44f487d040baa4e904640.png" },
+                { name: "FSSAI", image: "https://i.postimg.cc/h4QbP0yL/fssai8862.jpg" },
+                { name: "CPWD", image: "https://i.postimg.cc/x8B1WrTJ/96E924C4CD9B485086E36E28E1036AC9.jpg" },
+                { name: "GeM", image: "https://i.postimg.cc/D0rrzcJz/69E49DA7DCB24F4698556EC204A08831.png" }
+            ];
+
+            const reviews = [
+               { text: "Choosing S&S Enterprises for my home renovation was one of the best decisions I’ve made. Their uPVC windows have completely changed the look and feel of my home. Plus, the team was courteous, punctual, and extremely professional.", author: "Ananya Sharma, New Delhi", stars: "★★★★★" },
+               { text: "Our office communication has never been smoother. Thanks to S&S Enterprises’ telecom solutions, we’ve experienced crystal-clear calls and seamless integration with our IT systems. Highly recommended for any business.", author: "Aditya Thakur, Jaipur", stars: "★★★★★" },
+               { text: "Reliable power solutions are critical for us, and S&S Enterprises provided exactly that. The online UPS system has been a game-changer. Their team really knows their craft and cares about customer needs.", author: "Vivek, Faridabad", stars: "★★★★★" },
+               { text: "I truly appreciate the professionalism and transparency of S&S Enterprises. From quoting to final delivery, every step was seamless. Their commitment to quality and customer satisfaction is very rare to find these days.", author: "Pooja Sinha, South Extension", stars: "★★★★" },
+               { text: "Purchased solar power solutions for my farmhouse. Extremely satisfied with the system performance and the after-sales support. S&S Enterprises genuinely delivers what they promise — quality without compromise.", author: "Amit Bhandari, Connaught Place", stars: "★★★★" },
+               { text: "S&S Enterprises ke uPVC windows ne hamare villa ko ek modern aur elegant touch diya. Inki installation team highly trained aur courteous thi. Truly world-class experience.", author: "Aayisha Sharma, South Delhi", stars: "★★★★" },
+               { text: "IT networking ke liye jo servers aur security system install kiya gaya, woh seamless aur future-proof hai. Service aur after-sales support dono impeccable the.", author: "Rohan Nair, Noida Sector-62", stars: "★★★★★" },
+               { text: "New sliding doors installation ke baad hamare balcony ka pura look hi change ho gaya. Flawless quality aur premium finish.", author: "Priyanka Bhatnagar, Greater Kailash, Delhi", stars: "★★★★★" },
+               { text: "Hamare corporate office ke liye IP-PBX solution liya tha. Setup super smooth raha aur communication system kaafi efficient ban gaya hai. Highly recommended!", author: "Rahul,south Delhi", stars: "★★★★★" },
+               { text: "Hamare home renovation ke liye fixed aur bay windows install karaayi. Itna acha quality ka product mila, expectations se zyada deliver kiya.", author: "Shruti, Hauz Khas, Delhi", stars: "★★★★★" },
+               { text: "UPS aur inverter solutions ke liye S&S Enterprises ko choose kiya. Tab se hamare office operations mein kabhi koi downtime nahi aaya. Reliable partner!", author: "Rohit, Faridabad, Sector 15", stars: "★★★★★" },
+               { text: "Tally software aur MS Office ke genuine licenses lene ke liye best company hai. Installation service bhi professional thi, without any issues.", author: "Mehak Sethi, Defence Colony, Delhi", stars: "★★★★★" },
+               { text: "Windows and security access systems installation ke liye inhone jo timely execution aur quality deliver ki woh kaabil-e-tareef hai. Professionalism at its best.", author: "Arjun Chawla, East of Kailash, Delhi", stars: "★★★★★" },
+               { text: "Solar power installation ke baad hamare electricity bills mein noticeable reduction hua hai. Inka team highly knowledgeable aur co-operative tha throughout the process.", author: "Sanya Kapoor, Rohini Sector 9, Delhi", stars: "★★★★★" },
+               { text: "EPABX aur video door phone solutions install karwaye. Product quality aur installation service dono top-notch the. Worth every penny!", author: "Vikram Seth, Ghaziabad, Indirapuram", stars: "★★★★★" }
+           ];
+
+            return (
+                <div>
+                    <header className="fixed top-0 w-full bg-white bg-opacity-95 backdrop-blur-lg z-50 flex items-center justify-between p-4">
+                        <a href="#home">
+                            <img src="https://i.postimg.cc/Kcg71fy6/s-and-s-logo.jpg" alt="S & S Enterprises Logo" className="h-10" />
+                        </a>
+                        <nav className="hidden md:flex items-center justify-center flex-1">
+                            <ul className="flex gap-8">
+                                <li className="relative" onMouseEnter={() => openOverlay("home")} onMouseLeave={closeOverlay}>
+                                    <a href="#home" className="text-gray-900 text-sm hover:text-blue-600 transition">Home</a>
+                                    {activeOverlay === "home" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("home")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Home</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#home" className="hover:text-blue-600">Welcome to S&S Enterprises</a></li>
+                                                    <li><a href="#home" className="hover:text-blue-600">Empowering Your Spaces</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("about")} onMouseLeave={closeOverlay}>
+                                    <a href="#about" className="text-gray-900 text-sm hover:text-blue-600 transition">About</a>
+                                    {activeOverlay === "about" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("about")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">About Us</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#about" className="hover:text-blue-600">Our Mission</a></li>
+                                                    <li><a href="#about" className="hover:text-blue-600">Our Values</a></li>
+                                                    <li><a href="#about" className="hover:text-blue-600" onClick={toggleCareerModal}>Career</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("products")} onMouseLeave={closeOverlay}>
+                                    <a href="#products" className="text-gray-900 text-sm hover:text-blue-600 transition">Products</a>
+                                    {activeOverlay === "products" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("products")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto grid grid-cols-2 gap-6">
+                                                <div>
+                                                    <h3 className="text-xl font-semibold mb-4">Categories</h3>
+                                                    <ul className="space-y-2">
+                                                        <li><a href="#upvc" className="hover:text-blue-600">uPVC Windows & Doors</a></li>
+                                                        <li><a href="#telecom" className="hover:text-blue-600">Telecom</a></li>
+                                                        <li><a href="#it" className="hover:text-blue-600">IT & Networking</a></li>
+                                                        <li><a href="#power" className="hover:text-blue-600">Electricity & Power</a></li>
+                                                        <li><a href="#software" className="hover:text-blue-600">Software</a></li>
+                                                        <li><a href="#apple" className="hover:text-blue-600">Apple Products</a></li>
+                                                        <li><a href="#samsung" className="hover:text-blue-600">Samsung Products</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-xl font-semibold mb-4">Products</h3>
+                                                    <ul className="space-y-2">
+                                                        <li><strong>uPVC:</strong> Fixed, Casement, Sliding, Top-Hung, Tilt-Turn, Bay Windows</li>
+                                                        <li><strong>Telecom:</strong> EPABX, IP-PBX, IP Phones, Digital Phones</li>
+                                                        <li><strong>IT & Networking:</strong> Desktop, Laptop, Server, Workstation</li>
+                                                        <li><strong>Electricity & Power:</strong> Online UPS, Offline UPS, Inverter, Solar</li>
+                                                        <li><strong>Software:</strong> MS Office, MS Windows, Tally, Internet Security</li>
+                                                        <li><strong>Apple:</strong> MacBook, iMac, Magic Keyboard, Magic Mouse</li>
+                                                        <li><strong>Samsung:</strong> Galaxy Book, Monitors, SSD, Tablets</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("projects")} onMouseLeave={closeOverlay}>
+                                    <a href="#projects" className="text-gray-900 text-sm hover:text-blue-600 transition">Projects</a>
+                                    {activeOverlay === "projects" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("projects")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Projects</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#projects" className="hover:text-blue-600">uPVC Installations</a></li>
+                                                    <li><a href="#projects" className="hover:text-blue-600">Telecom Deployments</a></li>
+                                                    <li><a href="#projects" className="hover:text-blue-600">IT Infrastructure</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("clients")} onMouseLeave={closeOverlay}>
+                                    <a href="#clients" className="text-gray-900 text-sm hover:text-blue-600 transition">Clients</a>
+                                    {activeOverlay === "clients" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("clients")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Our Clients</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#clients" className="hover:text-blue-600">Government Departments</a></li>
+                                                    <li><a href="#clients" className="hover:text-blue-600">Corporate Partners</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("brochure")} onMouseLeave={closeOverlay}>
+                                    <a href="#brochure" className="text-gray-900 text-sm hover:text-blue-600 transition">Brochure</a>
+                                    {activeOverlay === "brochure" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("brochure")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Brochure</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#brochure" className="hover:text-blue-600">Download Brochure</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("enquiry")} onMouseLeave={closeOverlay}>
+                                    <a href="#enquiry" className="text-gray-900 text-sm hover:text-blue-600 transition">Enquiry</a>
+                                    {activeOverlay === "enquiry" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("enquiry")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Enquiry</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#enquiry" className="hover:text-blue-600">Get a Quote</a></li>
+                                                    <li><a href="#contact" className="hover:text-blue-600">Support</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                                <li className="relative" onMouseEnter={() => openOverlay("contact")} onMouseLeave={closeOverlay}>
+                                    <a href="#contact" className="text-gray-900 text-sm hover:text-blue-600 transition">Contact</a>
+                                    {activeOverlay === "contact" && (
+                                        <div className="overlay" onMouseEnter={() => openOverlay("contact")} onMouseLeave={closeOverlay}>
+                                            <div className="max-w-6xl mx-auto">
+                                                <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
+                                                <ul className="space-y-2">
+                                                    <li><a href="#contact" className="hover:text-blue-600">Get in Touch</a></li>
+                                                    <li><a href="#enquiry" className="hover:text-blue-600">Enquiry Form</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+                                </li>
+                            </ul>
+                            <i className="fas fa-search text-gray-900 ml-8 cursor-pointer hover:text-blue-600 transition" onClick={toggleSearch}></i>
+                            {searchOpen && (
+                                <div className="absolute top-12 right-4 bg-white p-2 rounded-lg shadow-lg">
+                                    <input type="search" placeholder="Search..." className="border-none outline-none p-2 w-48 text-black" />
+                                </div>
+                            )}
+                        </nav>
+                        <div className={`hamburger md:hidden ${menuOpen ? 'active' : ''}`} onClick={toggleMenu} role="button" aria-expanded={menuOpen} aria-controls="mobile-menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div id="mobile-menu" className={`md:hidden mobile-menu ${menuOpen ? 'open' : ''}`}>
+                            <ul className="text-black space-y-4">
+                                <li><a href="#home" className="hover:text-blue-600" onClick={toggleMenu}>Home</a></li>
+                                <li><a href="#about" className="hover:text-blue-600" onClick={toggleMenu}>About</a></li>
+                                <li><a href="#products" className="hover:text-blue-600" onClick={toggleMenu}>Products</a></li>
+                                <li><a href="#projects" className="hover:text-blue-600" onClick={toggleMenu}>Projects</a></li>
+                                <li><a href="#clients" className="hover:text-blue-600" onClick={toggleMenu}>Clients</a></li>
+                                <li><a href="#brochure" className="hover:text-blue-600" onClick={toggleMenu}>Brochure</a></li>
+                                <li><a href="#enquiry" className="hover:text-blue-600" onClick={toggleMenu}>Enquiry</a></li>
+                                <li><a href="#contact" className="hover:text-blue-600" onClick={toggleMenu}>Contact</a></li>
+                                <li><a href="#about" className="hover:text-blue-600" onClick={() => { toggleCareerModal(); toggleMenu(); }}>Career</a></li>
+                                <li><button onClick={toggleMenu} className="text-black text-sm hover:text-blue-600">Close</button></li>
+                            </ul>
+                        </div>
+                    </header>
+
+                    <div className={`content-wrapper ${menuOpen || activeOverlay || selectedProduct || showCareerModal || chatOpen ? 'blur' : ''}`}>
+                        <main>
+                            <section id="home" className="hero h-screen flex flex-col justify-center items-center text-center relative">
+                                <div className="parallax-bg absolute inset-0 bg-[url('https://i.postimg.cc/kMSpWFNf/pexels-pixabay-37347-1.jpg')]"></div>
+                                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                                <h1 className="text-5xl md:text-6xl font-semibold z-10 text-white">S&S Enterprises</h1>
+                                <p className="text-2xl md:text-3xl mt-4 z-10 text-white">"From Tech to Trust, Choose Us First"</p>
+                                <p className="text-xl mt-2 z-10 text-white">Empowering Your Spaces with Technology.</p>
+                                <a href="#products" className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg z-10 hover:bg-blue-700 transition">Explore Products</a>
+                            </section>
+
+                            <section id="products" className="py-20 bg-white">
+                                <div className="max-w-6xl mx-auto px-4">
+                                    <h2 className="text-4xl font-bold text-center mb-12" data-aos="fade-up">Our Products</h2>
+                                    <div className="product-slider swiper">
+                                        <div className="swiper-wrapper">
+                                            {products.map((product, index) => (
+                                                <div key={index} className="swiper-slide product-card bg-white rounded-lg shadow-lg p-4 w-64 h-[250px] flex-shrink-0 cursor-pointer flex flex-col" onClick={() => openProductPopup(product)} data-aos="fade-up" data-aos-delay={index * 100}>
+                                                    <img src={product.image} alt={product.name} className="w-full h-32 object-contain rounded-md mb-2" loading="lazy" />
+                                                    <h3 className="text-base font-semibold text-center">{product.name}</h3>
+                                                    <p className="text-xs text-gray-600 text-center mt-1 line-clamp-2">{product.description}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="swiper-button-prev product-prev"></div>
+                                        <div className="swiper-button-next product-next"></div>
+                                    </div>
+                                    <button onClick={() => setShowProductPopup(products)} className="mt-10 mx-auto block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-aos="fade-up">
+                                        View More
+                                    </button>
+                                </div>
+                                {showProductPopup && (
+                                    <div className="modal" onClick={closeProductPopup}>
+                                        <div className={`modal-content show`} onClick={(e) => e.stopPropagation()}>
+                                            <button className="absolute top-4 right-4 text-2xl" onClick={closeProductPopup}>×</button>
+                                            {Array.isArray(showProductPopup) ? (
+                                                <>
+                                                    <h3 className="text-2xl font-semibold mb-4">All Products</h3>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                        {showProductPopup.map((product, i) => (
+                                                            <div key={i} className="p-4 bg-gray-100 rounded-lg shadow-lg">
+                                                                <img src={product.image} alt={product.name} className="w-full h-32 object-contain mb-2" />
+                                                                <h4 className="text-lg font-semibold text-center">{product.name}</h4>
+                                                                <p className="text-sm text-gray-600 text-center">{product.description}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <img src={showProductPopup.image} alt={showProductPopup.name} className="w-full h-64 object-contain mb-4" />
+                                                    <h3 className="text-xl font-semibold text-center">{showProductPopup.name}</h3>
+                                                    <p className="text-sm text-gray-600 text-center">{showProductPopup.description}</p>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </section>
+
+                            <section id="projects" className="py-20 bg-gray-50">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10">Our Projects</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <div className="p-6 bg-white rounded-lg shadow-lg" data-aos="fade-up">
+                                            <img src="https://i.postimg.cc/DzL6zDWk/wi.jpg" alt="uPVC Installation" className="w-full h-40 object-contain rounded-lg mb-4" loading="lazy" />
+                                            <h3 className="text-xl font-semibold mb-2">uPVC Installations</h3>
+                                            <p>High-quality uPVC window and door installations for residential and commercial spaces.</p>
+                                        </div>
+                                        <div className="p-6 bg-white rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                                            <img src="https://i.postimg.cc/MTZwmDHX/108504-2.jpg" alt="Telecom Deployment" className="w-full h-40 object-contain rounded-lg mb-4" loading="lazy" />
+                                            <h3 className="text-xl font-semibold mb-2">Telecom Deployments</h3>
+                                            <p>Seamless telecom infrastructure for businesses across India.</p>
+                                        </div>
+                                        <div className="p-6 bg-white rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                                            <img src="https://i.postimg.cc/6QWTmjkL/84409.jpg" alt="IT Infrastructure" className="w-full h-40 object-contain rounded-lg mb-4" loading="lazy" />
+                                            <h3 className="text-xl font-semibold mb-2">IT Infrastructure</h3>
+                                            <p>Robust IT and networking solutions for modern enterprises.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section id="clients" className="py-20 bg-white">
+                                <div className="max-w-6xl mx-auto px-4">
+                                    <h2 className="text-4xl font-bold text-center mb-12" data-aos="fade-up">Trusted by Ministries & Government Departments</h2>
+                                    <div className="client-slider swiper">
+                                        <div className="swiper-wrapper">
+                                            {clients.map((client, index) => (
+                                                <div key={index} className="swiper-slide client-card bg-white rounded-lg shadow-lg p-4 w-64 h-[250px] flex-shrink-0 cursor-pointer flex flex-col" onClick={() => openClientPopup(client)} data-aos="fade-up" data-aos-delay={index * 100}>
+                                                    <img src={client.image} alt={client.name} className="w-full h-32 object-contain rounded-md mb-2" loading="lazy" />
+                                                    <h3 className="text-base font-semibold text-center">{client.name}</h3>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="swiper-button-prev client-prev"></div>
+                                        <div className="swiper-button-next client-next"></div>
+                                    </div>
+                                    <button onClick={() => setShowClientPopup(clients)} className="mt-10 mx-auto block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-aos="fade-up">
+                                        View More
+                                    </button>
+                                </div>
+                                {showClientPopup && (
+                                    <div className="modal" onClick={closeClientPopup}>
+                                        <div className={`modal-content show`} onClick={(e) => e.stopPropagation()}>
+                                            <button className="absolute top-4 right-4 text-2xl" onClick={closeClientPopup}>×</button>
+                                            {Array.isArray(showClientPopup) ? (
+                                                <>
+                                                    <h3 className="text-2xl font-semibold mb-4">All Clients</h3>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                        {showClientPopup.map((client, i) => (
+                                                            <div key={i} className="p-4 bg-gray-100 rounded-lg shadow-lg">
+                                                                <img src={client.image} alt={client.name} className="w-full h-32 object-contain mb-2" />
+                                                                <h4 className="text-lg font-semibold text-center">{client.name}</h4>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <img src={showClientPopup.image} alt={showClientPopup.name} className="w-full h-64 object-contain mb-4" />
+                                                    <h3 className="text-xl font-semibold text-center">{showClientPopup.name}</h3>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </section>
+
+                            <section id="reviews" className="py-20 bg-gray-50">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-4" data-aos="fade-up">Trusted by Delhi NCR’s Finest</h2>
+                                    <p className="text-lg text-gray-600 mb-4" data-aos="fade-up">Serving with Dedication Since <span ref={yearCounterRef}>2014</span></p>
+                                    <p className="text-lg text-gray-600 mb-10" data-aos="fade-up">Our Clients Speak for Us</p>
+                                    <div className="review-slider swiper">
+                                        <div className="swiper-wrapper">
+                                            {reviews.map((review, index) => (
+                                                <div key={index} className="swiper-slide review-card p-6 bg-white rounded-lg shadow-lg w-64 h-[250px] flex-shrink-0 cursor-pointer flex flex-col" onClick={() => openReviewPopup(review)} data-aos="fade-up" data-aos-delay={index * 100}>
+                                                    <p className="text-sm mb-4">{review.text.substring(0, 100)}...</p>
+                                                    <p className="text-sm font-semibold">{review.author}</p>
+                                                    <p className="text-yellow-500">{review.stars}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="swiper-button-prev review-prev"></div>
+                                        <div className="swiper-button-next review-next"></div>
+                                    </div>
+                                    <button onClick={() => setShowReviewPopup(reviews)} className="mt-10 mx-auto block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-aos="fade-up">
+                                        View More
+                                    </button>
+                                    <div className="flex flex-col md:flex-row gap-8 items-center mt-12">
+                                        <div className="w-full md:w-1/2" data-aos="fade-up">
+                                            <canvas ref={pieChartRef} width="300" height="300"></canvas>
+                                        </div>
+                                        <div className="w-full md:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="text-center" data-aos="fade-up">
+                                                <p className="text-3xl font-semibold" id="10000+ Happy Customers and Counting"></p>
+                                                <p className="text-gray-600">Now in 22+ states and 4+ countries — and expanding soon to many more.”</p>
+                                            </div>
+                                            <div className="text-center" data-aos="fade-up" data-aos-delay="100">
+                                                <p className="text-3xl font-semibold" id="Consistent Year-on-Year Growth"></p>
+                                                <p className="text-gray-600"></p>
+                                            </div>
+                                            <div className="text-center" data-aos="fade-up" data-aos-delay="200">
+                                                <p className="text-3xl font-semibold" id="years"></p>
+                                                <p className="text-gray-600"> </p>
+                                            </div>
+                                            <div className="text-center" data-aos="fade-up" data-aos-delay="300">
+                                                <p className="text-3xl font-semibold">Pan India Delivery</p>
+                                                <p className="text-gray-600">Nationwide Reach</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {showReviewPopup && (
+                                    <div className="modal" onClick={closeReviewPopup}>
+                                        <div className={`modal-content show`} onClick={(e) => e.stopPropagation()}>
+                                            <button className="absolute top-4 right-4 text-2xl" onClick={closeReviewPopup}>×</button>
+                                            {Array.isArray(showReviewPopup) ? (
+                                                <>
+                                                    <h3 className="text-2xl font-semibold mb-4">All Reviews</h3>
+                                                    <div className="space-y-6">
+                                                        {showReviewPopup.map((review, i) => (
+                                                            <div key={i} className="p-6 bg-gray-100 rounded-lg shadow-lg">
+                                                                <p className="text-lg font-bold text-black italic mb-4">“{review.text}”</p>
+                                                                {review.stars && <p className="text-yellow-500 mb-2">{review.stars}</p>}
+                                                                <p className="text-sm font-semibold text-gray-800">{review.author}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className="text-base font-bold text-black mb-4">{showReviewPopup.text}</p>
+                                                    <p className="text-sm font-semibold text-gray-800">{showReviewPopup.author}</p>
+                                                    <p className="text-yellow-500">{showReviewPopup.stars}</p>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </section>
+
+                            <section id="timeline" className="py-20 bg-white">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-4" data-aos="fade-up">Our Journey</h2>
+                                    <p className="text-lg font-bold text-black mb-4 text-animation" ref={journeyTextRef}>Serving with dedication since 2014</p>
+                                    <div className="timeline-container" data-aos="fade-up">
+                                        <div className="timeline">
+                                            {Array.from({ length: 12 }, (_, i) => 2014 + i).map((year) => (
+                                                <div key={year} className="timeline-item">
+                                                    <div className="timeline-year">{year}</div>
+                                                    <div className="timeline-dot"></div>
+                                                    <div className="timeline-connector"></div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <div className="text-center" data-aos="fade-up">
+                                            <p className="text-3xl font-semibold" ref={innovationYearsRef}>0</p>
+                                            <p className="text-gray-600">Years of Innovation</p>
+                                        </div>
+                                        <div className="text-center" data-aos="fade-up" data-aos-delay="100">
+                                            <p className="text-3xl font-semibold" ref={clientsServedRef}>0+</p>
+                                            <p className="text-gray-600">Clients Served</p>
+                                        </div>
+                                        <div className="text-center" data-aos="fade-up" data-aos-delay="200">
+                                            <p className="text-3xl font-semibold" ref={turnoverRef}>₹1.5 Cr</p>
+                                            <p className="text-gray-600">Turnover</p>
+                                        </div>
+                                        <div className="text-center" data-aos="fade-up" data-aos-delay="300">
+                                            <p className="text-3xl font-semibold" ref={employeesRef}>0</p>
+                                            <p className="text-gray-600">Employees</p>
+                                        </div>
+                                        <div className="text-center" data-aos="fade-up" data-aos-delay="400">
+                                            <p className="text-3xl font-semibold" ref={timelineYearRef}>2000</p>
+                                            <p className="text-gray-600">Journey Since</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section id="about" className="py-20 bg-white">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10" data-aos="fade-up">About S&S Enterprises</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                                        <div className="p-6 bg-gray-100 rounded-lg shadow-lg" data-aos="fade-up">
+                                            <h3 className="text-xl font-semibold mb-4">Ownership</h3>
+                                            <p>Founded by industry veterans, S&S Enterprises is a privately-owned company dedicated to excellence.</p>
+                                        </div>
+                                        <div className="p-6 bg-gray-100 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                                            <h3 className="text-xl font-semibold mb-4">Established</h3>
+                                            <p>Since 2014, delivering innovative solutions across India.</p>
+                                        </div>
+                                        <div className="p-6 bg-gray-100 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                                            <h3 className="text-xl font-semibold mb-4">Business Domains</h3>
+                                            <p>uPVC solutions, telecom services, IT networking, power systems, and software.</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                                        <div className="p-6 bg-gray-100 rounded-lg shadow-lg" data-aos="fade-up">
+                                            <h3 className="text-xl font-semibold mb-4">Mission</h3>
+                                            <p>Empowering excellence with integrity and innovation.</p>
+                                        </div>
+                                        <div className="p-6 bg-gray-100 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                                            <h3 className="text-xl font-semibold mb-4">Vision</h3>
+                                            <p>Rooted in Indian values, aiming for global impact.</p>
+                                        </div>
+                                    </div>
+                                    <div className="max-w-md mx-auto">
+                                        <h3 className="text-2xl font-semibold mb-6" data-aos="fade-up">Join Our Team</h3>
+                                        <button onClick={toggleCareerModal} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-aos="fade-up">Apply Now</button>
+                                    </div>
+                                    <a href="#brochure" className="mt-10 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-aos="fade-up">Download Brochure</a>
+                                </div>
+                            </section>
+
+                            <section id="enquiry" className="py-20 bg-gray-50">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10" data-aos="fade-up">Get in Touch</h2>
+                                    <div className="max-w-md mx-auto">
+                                        <input type="text" placeholder="Name" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Name" />
+                                        <input type="email" placeholder="Email" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Email" />
+                                        <input type="tel" placeholder="Phone" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Phone" />
+                                        <textarea placeholder="Message" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" rows="4" aria-label="Message"></textarea>
+                                        <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Send Enquiry</button>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section id="contact" className="py-20 bg-white">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10" data-aos="fade-up">Contact Us</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="mb-10" data-aos="fade-up">
+                                            <h3 className="text-2xl font-semibold mb-4">Head Office</h3>
+                                            <p>F-2/571, Batra Road, New Delhi - 110080</p>
+                                            <p>Email: <a href="mailto:info@sandsenterprises.co" className="text-blue-600 hover:underline">info@sandsenterprises.co</a></p>
+                                            <p><a href="https://wa.me/919654830618" target="_blank" className="text-green-600 hover:underline"><i className="fab fa-whatsapp mr-2"></i>WhatsApp Us</a></p>
+                                            <div className="mt-4">
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.665629231234!2d77.25198731508167!3d28.549378982456677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2a99b7e5e3b%3A0x8b7b7e8c8c8c8c8c!2sBatra%20Road%2C%20New%20Delhi%2C%20Delhi%20110080!5e0!3m2!1sen!2sin!4v1634567891234" width="100%" height="300" className="border-0 mx-auto" allowFullScreen loading="lazy"></iframe>
+                                            </div>
+                                        </div>
+                                        <div className="mb-10" data-aos="fade-up">
+                                            <h3 className="text-2xl font-semibold mb-4">Registered Office</h3>
+                                            <p>B-45, Kalkaji, Near Nehru Place, New Delhi - 110019</p>
+                                            <p>Email: <a href="mailto:sales@sandsenterprises.co" className="text-blue-600 hover:underline">sales@sandsenterprises.co</a></p>
+                                            <p><a href="https://wa.me/919654830618" target="_blank" className="text-green-600 hover:underline"><i className="fab fa-whatsapp mr-2"></i>WhatsApp Us</a></p>
+                                            <div className="mt-4">
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.665629231234!2d77.25198731508167!3d28.549378982456677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2a99b7e5e3b%3A0x8b7b7e8c8c8c8c8c!2sBatra%20Road%2C%20New%20Delhi%2C%20Delhi%20110080!5e0!3m2!1sen!2sin!4v1634567891234" width="100%" height="300" className="border-0 mx-auto" allowFullScreen loading="lazy"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section id="ceo" className="ceo-section">
+                                <div className="ceo-card" ref={ceoSectionRef} data-aos="fade-up">
+                                    <h2 className="text-4xl font-semibold mb-4">Message from the CEO</h2>
+                                    <p className="text-lg text-gray-600 mb-4">
+                                        "At S&S Enterprises, our mission is to deliver innovative and reliable solutions that empower our clients. Since 2014, we’ve been committed to excellence."
+                                    </p>
+                                    <p className="text-sm font-semibold text-gray-800">— CEO, Kamal Kashyap</p>
+                                </div>
+                            </section>
+                        </main>
+
+                        <footer className="py-10 bg-gray-900 text-white text-center">
+                            <div className="max-w-6xl mx-auto px-4">
+                                <p>© 2025 S&S Enterprises. All rights reserved.</p>
+                                <div className="mt-4 flex justify-center gap-6">
+                                    <a href="#" className="hover:text-blue-600"><i className="fab fa-facebook-f"></i></a>
+                                    <a href="#" className="hover:text-blue-600"><i className="fab fa-twitter"></i></a>
+                                    <a href="#" className="hover:text-blue-600"><i className="fab fa-linkedin-in"></i></a>
+                                    <a href="#" className="hover:text-blue-600"><i className="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+
+                    <div className="chatbot-icon" onClick={toggleChat}>
+  {chatOpen ? (
+    <i className="fas fa-times text-white text-2xl"></i>
+  ) : (
+    <i className="fas fa-comment-dots text-white text-2xl"></i>
+  )}
+</div>
+                    {chatOpen && (
+  <div className="chatbot-window open">
+    <div className="chatbot-body">
+      <iframe
+        src="https://www.chatbase.co/chatbot-iframe/IxyolZrJyxpohV62OT3nc"
+        width="100%"
+        style={{ height: '100%', minHeight: '400px' }}
+        frameBorder="0"
+      ></iframe>
+    </div>
+  </div>
+)}
+
+                    {showCareerModal && (
+                        <div className="modal" onClick={toggleCareerModal}>
+                            <div className={`modal-content show`} onClick={(e) => e.stopPropagation()}>
+                                <button className="absolute top-4 right-4 text-2xl" onClick={toggleCareerModal}>×</button>
+                                <h3 className="text-2xl font-semibold mb-4">Join Our Team</h3>
+                                <p className="mb-4">We’re always looking for talented individuals to join S&S Enterprises. Submit your details below:</p>
+                                <input type="text" placeholder="Name" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Name" />
+                                <input type="email" placeholder="Email" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Email" />
+                                <input type="tel" placeholder="Phone" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" aria-label="Phone" />
+                                <textarea placeholder="Why do you want to join us?" className="w-full p-3 mb-4 bg-gray-100 rounded-lg" rows="4" aria-label="Message"></textarea>
+                                <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Submit Application</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
